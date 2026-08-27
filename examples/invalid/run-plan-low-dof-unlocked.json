@@ -1,0 +1,14 @@
+{
+  "run_id": "run-low-dof-invalid",
+  "specimen_id": "coupon-low-dof-001",
+  "material_state_id": "state-low-dof-001",
+  "emitter_state_id": "emitter-isotropic-001",
+  "energization": "11",
+  "analysis_role": "held_out",
+  "material_stage": "low_dof",
+  "amplitude_level": 1.0,
+  "mediator_id": "mediator-a",
+  "normal_analysis_locked": false,
+  "destructive": false,
+  "precursor_analysis_locked": false
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/anisotropy/emitter-state.schema.json",
+  "title": "EmitterState",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["emitter_state_id", "symmetry", "deposited_energy_target_j", "energy_tolerance_fraction", "isotropy_metric", "isotropy_acceptance_max"],
+  "properties": {
+    "emitter_state_id": {"type": "string", "minLength": 1},
+    "symmetry": {"enum": ["isotropic_effective", "anisotropic"]},
+    "deposited_energy_target_j": {"type": "number", "exclusiveMinimum": 0},
+    "energy_tolerance_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+    "isotropy_metric": {"type": "number", "minimum": 0, "maximum": 1},
+    "isotropy_acceptance_max": {"type": "number", "minimum": 0, "maximum": 1},
+    "director_angle_deg": {"type": "number", "minimum": 0, "exclusiveMaximum": 180}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"symmetry": {"const": "anisotropic"}}},
+      "then": {"required": ["director_angle_deg"]},
+      "else": {"not": {"required": ["director_angle_deg"]}}
+    }
+  ]
+}

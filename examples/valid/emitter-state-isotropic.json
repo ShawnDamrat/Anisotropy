@@ -1,0 +1,8 @@
+{
+  "emitter_state_id": "emitter-isotropic-001",
+  "symmetry": "isotropic_effective",
+  "deposited_energy_target_j": 0.1,
+  "energy_tolerance_fraction": 0.02,
+  "isotropy_metric": 0.01,
+  "isotropy_acceptance_max": 0.02
+}

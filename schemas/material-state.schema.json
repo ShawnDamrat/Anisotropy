@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/anisotropy/material-state.schema.json",
+  "title": "MaterialState",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["material_state_id", "specimen_id", "symmetry", "dof_state"],
+  "properties": {
+    "material_state_id": {"type": "string", "minLength": 1},
+    "specimen_id": {"type": "string", "minLength": 1},
+    "symmetry": {"enum": ["isotropic_effective", "anisotropic"]},
+    "director_angle_deg": {"type": "number", "minimum": 0, "exclusiveMaximum": 180},
+    "anisotropy_parallel": {"type": "number", "minimum": 0},
+    "anisotropy_perpendicular": {"type": "number", "minimum": 0},
+    "dof_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage", "d_eff", "d_eff_reference", "reduction_threshold", "metric_name", "measurement_method", "constrained_modes", "induced_conventional_changes"],
+      "properties": {
+        "stage": {"enum": ["normal", "low_dof"]},
+        "d_eff": {"type": "number", "exclusiveMinimum": 0},
+        "d_eff_reference": {"type": "number", "exclusiveMinimum": 0},
+        "reduction_threshold": {"type": "number", "minimum": 0, "maximum": 1},
+        "metric_name": {"type": "string", "minLength": 1},
+        "measurement_method": {"type": "string", "minLength": 1},
+        "constrained_modes": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "constraint_mechanism": {"type": "string", "minLength": 1},
+        "induced_conventional_changes": {"type": "object", "additionalProperties": {"type": "number"}}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"symmetry": {"const": "anisotropic"}}},
+      "then": {"required": ["director_angle_deg", "anisotropy_parallel", "anisotropy_perpendicular"]},
+      "else": {"not": {"anyOf": [{"required": ["director_angle_deg"]}, {"required": ["anisotropy_parallel"]}, {"required": ["anisotropy_perpendicular"]}]}}
+    }
+  ]
+}

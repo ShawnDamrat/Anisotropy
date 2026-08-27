@@ -1,0 +1,19 @@
+{
+  "material_state_id": "state-low-dof-001",
+  "specimen_id": "coupon-low-dof-001",
+  "symmetry": "anisotropic",
+  "director_angle_deg": 0.0,
+  "anisotropy_parallel": 2.0,
+  "anisotropy_perpendicular": 1.0,
+  "dof_state": {
+    "stage": "low_dof",
+    "d_eff": 0.65,
+    "d_eff_reference": 1.0,
+    "reduction_threshold": 0.25,
+    "metric_name": "UNRESOLVED_DOF_METRIC",
+    "measurement_method": "UNRESOLVED_MEASUREMENT_METHOD",
+    "constrained_modes": ["UNRESOLVED_MODE"],
+    "constraint_mechanism": "UNRESOLVED_CONSTRAINT",
+    "induced_conventional_changes": {}
+  }
+}

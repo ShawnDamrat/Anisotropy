@@ -1,0 +1,8 @@
+{
+  "specimen_id": "coupon-normal-001",
+  "batch_id": "batch-a",
+  "parent_material_id": "parent-a",
+  "composition": "UNRESOLVED_MATERIAL",
+  "mediator_id": "mediator-a",
+  "dimensions_mm": [20.0, 20.0, 1.0]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/anisotropy/run-plan.schema.json",
+  "title": "RunPlan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["run_id", "specimen_id", "material_state_id", "emitter_state_id", "energization", "analysis_role", "material_stage", "amplitude_level", "mediator_id", "normal_analysis_locked", "destructive", "precursor_analysis_locked"],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "specimen_id": {"type": "string", "minLength": 1},
+    "material_state_id": {"type": "string", "minLength": 1},
+    "emitter_state_id": {"type": "string", "minLength": 1},
+    "energization": {"enum": ["00", "10", "01", "11"]},
+    "analysis_role": {"enum": ["calibration", "training", "held_out", "replication"]},
+    "material_stage": {"enum": ["normal", "low_dof"]},
+    "amplitude_level": {"type": "number", "minimum": 0},
+    "mediator_id": {"type": "string", "minLength": 1},
+    "normal_analysis_locked": {"type": "boolean"},
+    "destructive": {"type": "boolean"},
+    "precursor_analysis_locked": {"type": "boolean"}
+  }
+}

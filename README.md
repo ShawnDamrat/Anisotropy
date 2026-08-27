@@ -169,8 +169,39 @@ Also match or explicitly model spectrum, duty cycle, rise time, common-mode cont
 
 Use one specimen architecture with a known material/interface director $\hat n_M$. Prefer rotation of the same coupon or coupons cut from the same parent material over comparisons between different material families.
 
+#### Mandatory subject-material sequence: normal, then low DOF
+
+The subject material must be tested in two ordered stages:
+
+1. **Normal state first:** the qualified reference material in its ordinary, least-constrained operating state.
+2. **Low-DOF state second:** a matched form of the subject material in which specified accessible degrees of freedom have been deliberately reduced.
+
+“Low DOF” means a physically implemented and independently measured constraint on selected material responses. Depending on the chosen platform, this may constrain orientation, translation, rotation, vibration, domain motion, conformational motion, or another declared mode. It must not mean merely “more anisotropic,” “more ordered,” or “more Phi-like.” Before testing, the protocol must state:
+
+- which degrees of freedom are accessible in the normal state;
+- which are suppressed in the low-DOF state and by what physical mechanism;
+- the measurement used to verify the reduction;
+- the scalar or vector metric used to quantify the remaining freedom;
+- the conventional property changes caused by the constraint; and
+- the acceptance threshold separating the two states.
+
+Represent the verified state by a conventional constraint descriptor $\mathbf D_M$ and define a preregistered reduction metric, for example
+
+$$
+r_{\rm DOF}=1-\frac{D_{\rm eff,low}}{D_{\rm eff,normal}},
+\qquad 0\le r_{\rm DOF}\le1,
+$$
+
+where $D_{\rm eff}$ is an experimentally defined effective degree-of-freedom measure rather than a count inferred from Phi/Psi theory. The low-DOF state qualifies only if $r_{\rm DOF}$ exceeds its preregistered threshold.
+
+The two stages must retain, or explicitly model differences in, composition, dimensions, interface chemistry, defect population, moisture, contacts, clamping, temperature, deposited energy, and measurement bandwidth. If the low-DOF preparation irreversibly changes the specimen, use matched coupons from the same parent material and batch; do not reuse a damaged or conditioned normal-state coupon as the low-DOF specimen.
+
+Complete and lock the normal-state dataset and analysis pipeline before acquiring the low-DOF confirmatory dataset. This ordering prevents the low-DOF result from redefining the normal baseline. Run order within each stage remains randomized.
+
 Required states are:
 
+- **normal subject material:** qualified ordinary reference state, tested first;
+- **low-DOF subject material:** independently verified constrained state, tested second;
 - **isotropic-effective material:** independently verified $\mathbf A_M\approx a\mathbf I$ within tolerance;
 - **anisotropic material:** independently measured $a_\parallel\ne a_\perp$ and known $\hat n_M$;
 - **aligned anisotropic:** $\Delta\theta=0^\circ$;
@@ -201,6 +232,22 @@ Every cell must also include the four energization states:
 
 Cross this matrix with mediator identity, amplitude level, and replicate block. The first campaign should use one excitation method. A second genuinely different excitation method is a later generalization test, not a requirement for the initial result.
 
+Run the entire matrix first for the normal subject-material stage and then repeat it for the qualified low-DOF stage. Treat subject-material state as a preregistered factor:
+
+$$
+S_M\in\{\text{normal},\text{low DOF}\}.
+$$
+
+The principal additional contrast is
+
+$$
+\Delta\mathbf R_{\rm DOF}(t,\theta,I)
+=\mathbf R_{\rm low\,DOF}(t,\theta,I)
+-\mathbf R_{\rm normal}(t,\theta,I).
+$$
+
+This contrast tests whether reducing verified material freedom changes the non-additive residual. It does not presume the direction or sign of that change unless a directional prediction is preregistered before low-DOF data acquisition.
+
 ## Conventional controls
 
 ### Material and geometry controls
@@ -214,8 +261,9 @@ Measure before exposure:
 - thickness and spatial thickness variation;
 - surface roughness, voids, inclusions, cracks, and contamination;
 - interface adhesion and residual stress;
-- moisture and environmental history; and
-- emitter/source tensor and spatial field map.
+- moisture and environmental history;
+- emitter/source tensor and spatial field map; and
+- normal- and low-DOF state verification, including the declared $D_{\rm eff}$ metric and all constraint-induced property changes.
 
 ### Experimental controls
 
@@ -417,9 +465,12 @@ Even the strongest result in this experiment is **hypothesis-consistent**, not p
 
 - Manufacture or select matched coupons.
 - Measure anisotropic constitutive properties and director angle.
+- Define the normal state and the physical low-DOF constraint.
+- Verify $D_{\rm eff,normal}$, $D_{\rm eff,low}$, and the acceptance threshold for $r_{\rm DOF}$.
+- Quantify every conventional material change introduced by the low-DOF preparation.
 - Quantify rotation-induced boundary changes and coupon variability.
 
-**Exit:** material states and rotations are independently identifiable, stable, and adequately matched.
+**Exit:** normal, low-DOF, symmetry, and rotation states are independently identifiable, stable, and adequately matched.
 
 ### Phase 3 — conventional baseline
 
@@ -429,16 +480,26 @@ Even the strongest result in this experiment is **hypothesis-consistent**, not p
 
 **Exit:** held-out baseline predictions meet a preregistered error bound.
 
-### Phase 4 — blinded dual-side precursor campaign
+### Phase 4 — blinded normal-state dual-side precursor campaign
 
 - Randomize the complete symmetry matrix.
+- Use only qualified normal-state subject material.
 - Acquire `11` trials below the destructive limit.
 - Lock preprocessing before unblinding.
 - Compute $\Delta\mathbf Y_{\rm dual}$ and $\mathbf R$ on held-out coupons.
 
-**Exit:** a falsification decision for the primary residual and angular prediction.
+**Exit:** a locked normal-state baseline and falsification decision for its primary residual and angular prediction.
 
-### Phase 5 — mediator and independent-batch replication
+### Phase 5 — low-DOF confirmatory campaign
+
+- Freeze the normal-state analysis before low-DOF acquisition.
+- Repeat the complete symmetry and energization matrix using only qualified low-DOF material.
+- Compute $\Delta\mathbf R_{\rm DOF}$ without changing the primary preprocessing or conventional accounting rules.
+- Test the preregistered low-DOF effect and its interaction with angle, source symmetry, and material symmetry.
+
+**Exit:** a qualified comparison between normal and low-DOF subject material.
+
+### Phase 6 — mediator and independent-batch replication
 
 - Change only mediator identity or its independently measured state.
 - Repeat on a separately manufactured batch.
@@ -446,14 +507,14 @@ Even the strongest result in this experiment is **hypothesis-consistent**, not p
 
 **Exit:** replicated null, conventional explanation, unresolved residual, or hypothesis-consistent result.
 
-### Phase 6 — secondary destructive map
+### Phase 7 — secondary destructive map
 
 - Only after precursor analysis is locked, perform controlled breakdown tests if justified and authorized.
 - Compare spatial precursor maps with terminal failure morphology.
 
 **Exit:** a separate breakdown dataset that cannot retroactively redefine the primary endpoint.
 
-### Phase 7 — cross-modality generalization
+### Phase 8 — cross-modality generalization
 
 - Use a second physically distinct excitation method.
 - Define a new conventional model and a defensible matched-state metric.
@@ -468,6 +529,7 @@ Even the strongest result in this experiment is **hypothesis-consistent**, not p
 | Qualified null | No detectable residual in the tested range | Publish sensitivity bounds; revise or retire this implementation |
 | Conventional closure | Residual explained by established mechanisms | Adopt the conventional explanation; do not invoke Phi/Psi |
 | Design-confounded | Symmetry, energy, fixture, or specimen matching failed | Repair qualification; do not interpret physics |
+| DOF contrast unqualified | The proposed constraint did not measurably reduce the declared DOF, or changed uncontrolled properties | Redesign the constraint; do not interpret the normal/low-DOF difference |
 | Unresolved residual | Residual replicates but prediction topology is incomplete | Improve conventional diagnostics and preregister a discriminating follow-up |
 | Hypothesis-consistent | Full preregistered topology survives controls and replication | Constrain an operational Phi/Psi model; seek independent laboratory reproduction |
 | Ontology underdetermined | Multiple speculative models fit equally well | Report non-uniqueness; design a model-selection experiment |
@@ -503,6 +565,33 @@ tests/
 ```
 
 Keep conventional and speculative models in separate directories and produce separate outputs. A speculative fit must never overwrite or become an untracked correction inside the conventional baseline.
+
+## Software foundation
+
+Milestones M000-M002 provide a dependency-free Python domain layer and machine-readable JSON Schemas for specimens, material/DOF states, emitter states, and run plans. The Python validators enforce cross-field requirements that JSON shape validation alone cannot establish, including:
+
+- normal-state effective DOF equals its declared reference;
+- low-DOF states name the constrained modes and physical constraint mechanism;
+- low-DOF runs require a locked normal-state analysis;
+- anisotropic states declare a director and distinct principal responses;
+- isotropic-effective emitters pass their declared isotropy tolerance; and
+- destructive runs require a locked precursor analysis.
+
+The example files retain `UNRESOLVED_*` markers where physical choices still require experimental evidence. Those placeholders are not qualified configurations.
+
+Run the current verification suite from the repository root:
+
+```bash
+python3 -m pytest
+```
+
+Install the package for local development with:
+
+```bash
+python3 -m pip install -e '.[test]'
+```
+
+The current software records conventional experimental state only. It assigns no measured units or operational observables to Phi, Psi, $q_v$, or the speculative mediator coupling.
 
 ## Run-level acceptance checklist
 
